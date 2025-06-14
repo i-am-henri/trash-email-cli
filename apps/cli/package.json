@@ -1,0 +1,14 @@
+{
+  "name": "cli",
+  "module": "index.ts",
+  "type": "module",
+  "private": true,
+  "devDependencies": {
+    "@biomejs/biome": "^1.9.4",
+    "@types/bun": "latest",
+    "ultracite": "^4.2.10"
+  },
+  "peerDependencies": {
+    "typescript": "^5"
+  }
+}
