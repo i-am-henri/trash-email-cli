@@ -4,7 +4,9 @@
 	"type": "module",
 	"private": true,
 	"scripts": {
-		"server:dev": "bun run --watch index.ts"
+		"server:dev": "concurrently \"bun run server\" \"bun run internal-server\"",
+		"server": "bun run src/index.ts",
+		"internal-server": "bun run src/internal-server.ts"
 	},
 	"devDependencies": {
 		"@types/bun": "latest"
@@ -14,6 +16,7 @@
 	},
 	"dependencies": {
 		"@paralleldrive/cuid2": "^2.2.2",
+		"concurrently": "^9.1.2",
 		"consola": "^3.4.2",
 		"zod": "^3.25.64"
 	}
