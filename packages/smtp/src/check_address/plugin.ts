@@ -10,12 +10,16 @@ exports.hook_rcpt = async function (
 	const rcpt_to = connection.transaction.rcpt_to.map((rcpt) => rcpt.address());
 	const rcpt = rcpt_to[0];
 
+	this.loginfo("Checking recipient " + rcpt);
+
 	const res = await fetch("http://localhost:3001/email/recipient", {
 		method: "POST",
 		body: JSON.stringify({
 			email: rcpt,
 		}),
 	});
+
+	this.loginfo(JSON.stringify(res));
 
 	if (!res.ok) {
 		this.logerror(`Recipient ${rcpt} is not a valid recipient!`);

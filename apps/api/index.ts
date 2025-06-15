@@ -125,6 +125,7 @@ const internalServer = serve({
 					consola.log(`Checked email ${data.email}`);
 
 					if (!mails.has(data.email)) {
+						consola.error(`No address found for ${data.email}`);
 						return new Response("No address found", { status: 404 });
 					}
 
