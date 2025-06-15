@@ -1,0 +1,23 @@
+{
+  "name": "haraka_local",
+  "description": "An SMTP Server",
+  "version": "0.0.1",
+  "repository": "",
+  "license": "MIT",
+  "type": "module",
+  "scripts": {
+    "dev": "tsx ./scripts/compile.ts && haraka -c .",
+    "sudo:dev": "sudo env \"PATH=$PATH\" bun run dev"
+  },
+  "devDependencies": {
+    "@biomejs/biome": "1.9.4",
+    "@types/node": "^22.7.6",
+    "tsx": "^4.19.1",
+    "typescript": "^5.6.3"
+  },
+  "dependencies": {
+    "@types/consola": "^1.0.0",
+    "consola": "^3.2.3",
+    "esbuild": "^0.24.0"
+  }
+}
