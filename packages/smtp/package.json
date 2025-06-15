@@ -7,9 +7,8 @@
 	"type": "module",
 	"scripts": {
 		"build": "tsx ./scripts/compile.ts",
-		"server:start": "sudo env \"PATH=$PATH\" bun run build && sudo env \"PATH=$PATH\" haraka -c .",
-		"watch": "nodemon",
-		"server:dev": "nodemon"
+		"server:dev": "sudo env \"PATH=$PATH\" bun run build && sudo env \"PATH=$PATH\" haraka -c .",
+		"watch": "nodemon"
 	},
 	"nodemonConfig": {
 		"watch": ["src/**/*", "types/**/*", "config/**/*"],
