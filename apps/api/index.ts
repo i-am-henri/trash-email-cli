@@ -22,6 +22,7 @@ const server = serve<{ email: string }>({
 	port: 3000,
 	routes: {
 		"/health": () => {
+			consola.log("Health check");
 			return new Response("OK");
 		},
 	},
@@ -30,6 +31,8 @@ const server = serve<{ email: string }>({
 
 		if (url.pathname === "/listen") {
 			const emailID = createId();
+
+			consola.log(`Listening for emails from ${emailID}`);
 
 			mails.set(`${emailID}@trash.company`, []);
 
@@ -45,6 +48,8 @@ const server = serve<{ email: string }>({
 			mails.delete(`${ws.data.email}@trash.company`);
 		},
 		async open(ws) {
+			consola.log(`Opened WebSocket for ${ws.data.email}`);
+
 			ws.subscribe(ws.data.email);
 
 			ws.send(
@@ -82,6 +87,8 @@ const internalServer = serve({
 
 				const data = parse.data;
 
+				consola.log(`Received email from ${data.from} to ${data.to}`);
+
 				if (!mails.has(data.to)) {
 					return new Response("No address found", { status: 404 });
 				}
@@ -114,6 +121,8 @@ const internalServer = serve({
 					}
 
 					const data = parse.data;
+
+					consola.log(`Checked email ${data.email}`);
 
 					if (!mails.has(data.email)) {
 						return new Response("No address found", { status: 404 });

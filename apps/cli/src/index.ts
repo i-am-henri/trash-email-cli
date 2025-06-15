@@ -6,7 +6,7 @@ import chalk from "chalk";
 import { z } from "zod";
 
 // config
-const url = "http://localhost:3000";
+const url = "http://89.47.51.236:3000";
 
 console.log("");
 intro("Welcome to the Trash Email CLI!");
@@ -23,7 +23,7 @@ await tasks([
 	},
 ]);
 
-const socket = new WebSocket("ws://localhost:3000/listen");
+const socket = new WebSocket("ws://89.47.51.236:3000/listen");
 
 socket.addEventListener("open", () => {
 	log.info(
