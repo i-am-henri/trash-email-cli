@@ -13,9 +13,18 @@ exports.hook_rcpt = async function (
 	this.loginfo(`Checking recipient ${rcpt}`);
 
 	try {
-		const res = await axios.post("http://89.47.51.236:3001/email/recipient", {
-			email: `${rcpt}@trash.company`,
-		});
+		const res = await axios.post(
+			"http://89.47.51.236:3001/email/recipient",
+			{
+				email: `${rcpt}@trash.company`,
+			},
+			{
+				headers: {
+					// get's replaced
+					authorization: "Bearer process.env.AUTH_TOKEN",
+				},
+			},
+		);
 
 		this.loginfo(JSON.stringify(res.data));
 

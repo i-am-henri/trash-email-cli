@@ -4,9 +4,7 @@
 	"type": "module",
 	"private": true,
 	"scripts": {
-		"server:dev": "concurrently \"bun run server\" \"bun run internal-server\"",
-		"server": "bun run src/index.ts",
-		"internal-server": "bun run src/internal-server.ts"
+		"server:dev": "bun run src/index.ts"
 	},
 	"devDependencies": {
 		"@types/bun": "latest"

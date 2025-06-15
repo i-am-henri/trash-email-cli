@@ -1,8 +1,8 @@
 import { parse } from "address-rfc2822";
-import fetch from "node-fetch";
+import axios from "axios";
 import type { Connection, Next } from "../../types/parameter.js";
 
-exports.hook_data = function (this, next: Next, connection: any) {
+exports.hook_data = function (this, next: Next, connection: Connection) {
 	// enable mail body parsing
 	connection.transaction.parse_body = true;
 	next();
@@ -51,18 +51,29 @@ exports.hook_queue = async function (this, next: Next, connection: Connection) {
 		subject,
 	});
 
-	const res = await fetch("http://localhost:3001/email/receive", {
-		method: "POST",
-		body: JSON.stringify({
-			from: mail_from,
-			to: `${rcpt}@trash.company`,
-			body: email_body.toString(),
-			subject,
-		}),
-	});
+	try {
+		const axiosRes = await axios.post(
+			"http://localhost:3000/email/receive",
+			{
+				from: mail_from,
+				to: `${rcpt}@trash.company`,
+				body: email_body.toString(),
+				subject,
+			},
+			{
+				headers: {
+					// gets replaced
+					authorization: "Bearer process.env.AUTH_TOKEN",
+				},
+			},
+		);
 
-	if (!res.ok) {
-		this.loginfo("Error at saving the email for " + rcpt_to);
+		if (axiosRes.status < 200 || axiosRes.status >= 300) {
+			this.loginfo(`Error at saving the email for ${rcpt_to}`);
+			return next(DENY);
+		}
+	} catch (err) {
+		this.loginfo(`Error at saving the email for ${rcpt_to}: ${err}`);
 		return next(DENY);
 	}
 
