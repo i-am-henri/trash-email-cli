@@ -1,18 +1,30 @@
-# 📨 Haraka app to send and receive emails
-This is the official smtp server for selfmail. This is an secured and powerfull server for receiving and sending emails. This server supports custom domains and more.
+**Haraka SMTP Server**
 
-## Plugins:
-- 
+This is an inbound-only SMTP Server, written in Typescript with Haraka. It's listening for incoming emails on port 25, checks if they are spam and sends them to an internal api (`/apps/api`).
 
-### Plugins written by us:
-- 
+**Selfhosting**
 
-## Selfhost
-Just copy this repo, install haraka with the following command:
+You can easily selfhost this smtp server on your vps. You need the port **25** open, you need to install `node-fetch` globally, a domain to receive emails and [bun](https://bun.sh/).
+
+1. Clone the entire repo.
+
+```bash
+git clone https://github.com/i-am-henri/trash-email-cli.git
+````
+
+2. Install the dependencies.
+
+```bash
+cd trash-email-cli
+bun install
 ```
-npm i -g Haraka
+
+3. Start the server. This will start the internal api server, the public server and the smtp server.
+
+```bash
+bun run server:dev
 ```
-After that, you can run the server with:
-```
-haraka -c /path/to/server
-```
+
+4. Forward the port 3000 with caddy or nginx. Keep the port 3001 closed.
+
+5. Edit the cli app and add your api url.
