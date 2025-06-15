@@ -23,15 +23,12 @@ await tasks([
 	},
 ]);
 
-// client.ts
-
-const email = "user@example.com";
-const socket = new WebSocket(
-	`ws://localhost:3000/listen?email=${encodeURIComponent(email)}}`,
-);
+const socket = new WebSocket("ws://localhost:3000/listen");
 
 socket.addEventListener("open", () => {
-	log.info("Connected to the server!");
+	log.info(
+		"Connected to the server! Your connection gets closed after 120 seconds of inactivity.",
+	);
 });
 
 socket.addEventListener("message", async (event) => {
@@ -64,30 +61,46 @@ socket.addEventListener("message", async (event) => {
 	}
 
 	if (parse.data.email !== undefined) {
-		log.info(`Your email is ${parse.data.email}.`);
+		log.info(
+			`Your email is ${parse.data.email}. We are listening for incoming mails!`,
+		);
 	}
 
 	if (parse.data.receivedEmail !== undefined) {
 		const labelWidth = 9; // "Subject:" ist 8 Zeichen lang
 
 		const content = [
-			`${chalk.greenBright("Email Received")} ${parse.data.receivedEmail.from}`,
+			`${chalk.gray("From:")}    ${parse.data.receivedEmail.from}`,
 			`${chalk.gray("Subject:")} ${parse.data.receivedEmail.subject}`,
 			`${chalk.gray("Body:")}    ${parse.data.receivedEmail.body}`,
 		].join("\n");
 
 		const box = boxen(content, {
 			padding: 1,
+			title: "Email Received",
 			borderStyle: "round",
 			borderColor: "gray",
 			align: "left",
 		});
 
+		console.log("");
 		console.log(box);
 	}
 });
 
 socket.addEventListener("close", () => {
+	outro("Connection got closed! Bye!");
+	process.exit(0);
+});
+
+process.on("SIGINT", () => {
+	socket.close();
+	outro("Connection got closed! Bye!");
+	process.exit(0);
+});
+
+process.on("SIGTERM", () => {
+	socket.close();
 	outro("Connection got closed! Bye!");
 	process.exit(0);
 });
