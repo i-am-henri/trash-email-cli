@@ -1,7 +1,7 @@
 import { type BunRequest, serve } from "bun";
 import consola from "consola";
 import { z } from "zod";
-import { mails, server } from ".";
+import { mails, server } from "./index";
 
 // local server. DO NOT EXPOSE THIS TO THE PUBLIC
 const internalServer = serve({

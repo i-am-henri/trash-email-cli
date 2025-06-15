@@ -61,4 +61,5 @@ export const server = serve<{ email: string }>({
 		},
 	},
 });
+
 consola.info(`Server running on http://localhost:${server.port}.`);
