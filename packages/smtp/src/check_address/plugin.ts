@@ -1,3 +1,4 @@
+import axios from "axios";
 import fetch from "node-fetch";
 import type { Connection, Next } from "../../types/parameter.js";
 import type { This } from "../../types/this.js";
@@ -12,11 +13,8 @@ exports.hook_rcpt = async function (
 
 	this.loginfo("Checking recipient " + rcpt);
 
-	const res = await fetch("http://localhost:3001/email/recipient", {
-		method: "POST",
-		body: JSON.stringify({
-			email: rcpt,
-		}),
+	const res = await axios.post("http://89.47.51.236:3001/email/recipient", {
+		email: `${rcpt}@trash.company`,
 	});
 
 	this.loginfo(JSON.stringify(res));

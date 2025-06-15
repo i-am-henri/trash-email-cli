@@ -5,6 +5,7 @@
 	"private": true,
 	"devDependencies": {
 		"@biomejs/biome": "^1.9.4",
+		"@types/axios": "^0.14.4",
 		"@types/bun": "latest",
 		"ultracite": "^4.2.10"
 	},

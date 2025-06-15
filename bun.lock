@@ -35,6 +35,7 @@
       },
       "devDependencies": {
         "@biomejs/biome": "^1.9.4",
+        "@types/axios": "^0.14.4",
         "@types/bun": "latest",
         "ultracite": "^4.2.10",
       },
@@ -145,6 +146,8 @@
     "@noble/hashes": ["@noble/hashes@1.8.0", "", {}, "sha512-jCs9ldd7NwzpgXDIf6P3+NrHh9/sD6CQdxHyjQI+h/6rDNo88ypBxxz45UDuZHz9r3tNz7N/VInSVoVdtXEI4A=="],
 
     "@paralleldrive/cuid2": ["@paralleldrive/cuid2@2.2.2", "", { "dependencies": { "@noble/hashes": "^1.1.5" } }, "sha512-ZOBkgDwEdoYVlSeRbYYXs0S9MejQofiVYoTbKzy/6GQa39/q5tQU2IX46+shYnUkpEl3wc+J6wRlar7r2EK2xA=="],
+
+    "@types/axios": ["@types/axios@0.14.4", "", { "dependencies": { "axios": "*" } }, "sha512-9JgOaunvQdsQ/qW2OPmE5+hCeUB52lQSolecrFrthct55QekhmXEwT203s20RL+UHtCQc15y3VXpby9E7Kkh/g=="],
 
     "@types/bun": ["@types/bun@1.2.16", "", { "dependencies": { "bun-types": "1.2.16" } }, "sha512-1aCZJ/6nSiViw339RsaNhkNoEloLaPzZhxMOYEa7OzRzO41IGg5n/7I43/ZIAW/c+Q6cT12Vf7fOZOoVIzb5BQ=="],
 
