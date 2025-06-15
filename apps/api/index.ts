@@ -1,5 +1,5 @@
 import { init } from "@paralleldrive/cuid2";
-import { serve } from "bun";
+import { type BunRequest, serve } from "bun";
 import consola from "consola";
 import { z } from "zod";
 
@@ -97,6 +97,30 @@ const internalServer = serve({
 				);
 
 				return new Response("OK");
+			},
+			"/email/recipient": {
+				POST: async (req: BunRequest<"/email/recipient">) => {
+					const body = await req.json();
+
+					const parse = await z
+						.object({
+							email: z.string(),
+						})
+						.safeParseAsync(body);
+					if (!parse.success) {
+						return new Response(JSON.stringify(parse.error), {
+							status: 400,
+						});
+					}
+
+					const data = parse.data;
+
+					if (!mails.has(data.email)) {
+						return new Response("No address found", { status: 404 });
+					}
+
+					return new Response("OK");
+				},
 			},
 		},
 	},

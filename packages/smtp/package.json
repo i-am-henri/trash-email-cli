@@ -33,7 +33,7 @@
 	"devDependencies": {
 		"@biomejs/biome": "1.9.4",
 		"@types/consola": "^1.0.0",
-		"@types/node": "^22.7.6",
+		"@types/node": "^24.0.1",
 		"@types/node-fetch": "^2.6.12",
 		"minimatch": "^10.0.1",
 		"nodemon": "^3.1.10",

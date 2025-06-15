@@ -8,18 +8,17 @@ exports.hook_rcpt = async function (
 	connection: Connection,
 ) {
 	const rcpt_to = connection.transaction.rcpt_to.map((rcpt) => rcpt.address());
-	const rcpt = rcpt_to[0].split("@")[0];
-	this.loginfo(rcpt);
+	const rcpt = rcpt_to[0];
 
-	const res = await fetch("http://localhost:4001/api/check-address", {
+	const res = await fetch("http://localhost:3001/email/recipient", {
 		method: "POST",
 		body: JSON.stringify({
-			email: `${rcpt}@trash.company`,
+			email: rcpt,
 		}),
 	});
 
 	if (!res.ok) {
-		this.logerror(`Recipient ${rcpt_to} is not a valid recipient!`);
+		this.logerror(`Recipient ${rcpt} is not a valid recipient!`);
 		return next(DENY);
 	}
 
