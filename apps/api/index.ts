@@ -24,6 +24,43 @@ const server = serve<{ email: string }>({
 		"/health": () => {
 			return new Response("OK");
 		},
+	},
+	fetch: (req) => {
+		const url = new URL(req.url);
+
+		if (url.pathname === "/listen") {
+			const emailID = createId();
+
+			mails.set(`${emailID}@trash.company`, []);
+
+			server.upgrade(req, {
+				data: {
+					email: `${emailID}@trash.company`,
+				},
+			});
+		}
+	},
+	websocket: {
+		async close(ws) {
+			mails.delete(`${ws.data.email}@trash.company`);
+		},
+		async open(ws) {
+			ws.subscribe(ws.data.email);
+
+			ws.send(
+				JSON.stringify({
+					success: true,
+					email: ws.data.email,
+				}),
+			);
+		},
+	},
+});
+
+// local server. DO NOT EXPOSE THIS TO THE PUBLIC
+const internalServer = serve({
+	port: 3001,
+	routes: {
 		"/email/receive": {
 			POST: async (req) => {
 				const body = await req.json();
@@ -63,42 +100,8 @@ const server = serve<{ email: string }>({
 			},
 		},
 	},
-	fetch: (req) => {
-		const url = new URL(req.url);
-
-		if (url.pathname === "/listen") {
-			const emailID = createId();
-
-			mails.set(`${emailID}@trash.company`, []);
-
-			server.upgrade(req, {
-				data: {
-					email: `${emailID}@trash.company`,
-				},
-			});
-		}
-	},
-	websocket: {
-		// this is called when a message is received
-		async message(ws, message) {
-			console.log(`Received ${message}`);
-			// send back a message
-			ws.send(`You said: ${message}`);
-		},
-		async close(ws) {
-			mails.delete(`${ws.data.email}@trash.company`);
-		},
-		async open(ws) {
-			ws.subscribe(ws.data.email);
-
-			ws.send(
-				JSON.stringify({
-					success: true,
-					email: ws.data.email,
-				}),
-			);
-		},
-	},
 });
 
-consola.success(`Server running on http://localhost:${server.port}`);
+consola.info(
+	`Server running on http://localhost:${server.port}. Internal server running on http://localhost:${internalServer.port}.`,
+);
