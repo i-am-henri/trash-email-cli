@@ -42,7 +42,7 @@
         "typescript": "^5",
       },
     },
-    "apps/smtp": {
+    "packages/smtp": {
       "name": "haraka_local",
       "version": "0.0.1",
       "dependencies": {
@@ -177,7 +177,7 @@
 
     "get-tsconfig": ["get-tsconfig@4.10.1", "", { "dependencies": { "resolve-pkg-maps": "^1.0.0" } }, "sha512-auHyJ4AgMz7vgS8Hp3N6HXSmlMdUyhSUrfBF16w153rxtLIEOE+HGqaBppczZvnHLqQJfiHotCYpNhl0lUROFQ=="],
 
-    "haraka_local": ["haraka_local@workspace:apps/smtp"],
+    "haraka_local": ["haraka_local@workspace:packages/smtp"],
 
     "is-fullwidth-code-point": ["is-fullwidth-code-point@3.0.0", "", {}, "sha512-zymm5+u+sCsSWyD9qNaejV3DFvhCKclKdizYaJUuHA83RLjb7nSuGnddCHGv0hk+KY7BMAlsWeK4Ueg6EV6XQg=="],
 
