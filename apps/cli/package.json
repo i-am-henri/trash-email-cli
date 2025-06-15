@@ -1,14 +1,22 @@
 {
-  "name": "cli",
-  "module": "index.ts",
-  "type": "module",
-  "private": true,
-  "devDependencies": {
-    "@biomejs/biome": "^1.9.4",
-    "@types/bun": "latest",
-    "ultracite": "^4.2.10"
-  },
-  "peerDependencies": {
-    "typescript": "^5"
-  }
+	"name": "cli",
+	"module": "index.ts",
+	"type": "module",
+	"private": true,
+	"devDependencies": {
+		"@biomejs/biome": "^1.9.4",
+		"@types/bun": "latest",
+		"ultracite": "^4.2.10"
+	},
+	"scripts": {
+		"cli:dev": "bun run src/index.ts"
+	},
+	"peerDependencies": {
+		"typescript": "^5"
+	},
+	"dependencies": {
+		"@clack/prompts": "^0.11.0",
+		"boxen": "^8.0.1",
+		"chalk": "^5.4.1"
+	}
 }
